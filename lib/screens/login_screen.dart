@@ -17,9 +17,9 @@ class _LoginScreenState extends State<LoginScreen> {
               _backgroundImage(context),
               _title(context),
               SizedBox(height: 5),
-              _authenticationField(context, isPassword: false),
+              _credentialsTextbox(context, isPassword: false),
               SizedBox(height: 4),
-              _authenticationField(context, isPassword: true),
+              _credentialsTextbox(context, isPassword: true),
               SizedBox(height: 10),
               _loginButton(context),
               SizedBox(height: 10),
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             letterSpacing: 1.0),
       );
 
-  Widget _authenticationField(BuildContext context, {bool isPassword}) {
+  Widget _credentialsTextbox(BuildContext context, {bool isPassword}) {
     var hint = isPassword ? 'Password' : 'Username';
     var authIcon = isPassword ? Icons.lock : Icons.account_box;
 
