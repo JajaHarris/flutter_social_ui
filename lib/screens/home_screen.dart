@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_social_ui/widgets/following_users_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -28,6 +29,15 @@ class _HomeScreenState extends State<HomeScreen>
         title: _title(context),
         bottom: _tabBar(),
       ),
+      body: _body(context),
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        FollowingUsersWidget(),
+      ],
     );
   }
 
