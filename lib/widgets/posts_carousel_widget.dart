@@ -10,14 +10,10 @@ class PostsCarouselWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Widget _body() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _followingCaption(),
+        _postsCaption(),
         _postsCarousel(),
       ],
     );
@@ -44,15 +40,11 @@ class PostsCarouselWidget extends StatelessWidget {
         Container(
           margin: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                offset: Offset(0, 2),
-                blurRadius: 6
-              ),
-            ]
-          ),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26, offset: Offset(0, 2), blurRadius: 6),
+              ]),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: Image(
@@ -67,7 +59,7 @@ class PostsCarouselWidget extends StatelessWidget {
     );
   }
 
-  Widget _followingCaption() {
+  Widget _postsCaption() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       child: Text(
