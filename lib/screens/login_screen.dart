@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_social_ui/widgets/curve_clipper.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -32,11 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _backgroundImage(BuildContext context) {
-    return Image(
-      height: MediaQuery.of(context).size.height / 3,
-      width: double.infinity,
-      image: AssetImage('assets/images/login_background.jpg'),
-      fit: BoxFit.cover,
+    return ClipPath(
+      clipper: CurveClipper(),
+      child: Image(
+        height: MediaQuery.of(context).size.height / 3,
+        width: double.infinity,
+        image: AssetImage('assets/images/login_background.jpg'),
+        fit: BoxFit.cover,
+      ),
     );
   }
 
@@ -46,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
             color: Theme.of(context).primaryColor,
             fontSize: 34.0,
             fontWeight: FontWeight.bold,
-            letterSpacing: 1.0),
+            letterSpacing: 10),
       );
 
   Widget _credentialsTextbox(BuildContext context, {bool isPassword}) {
