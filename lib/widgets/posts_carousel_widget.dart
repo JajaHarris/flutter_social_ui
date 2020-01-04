@@ -5,11 +5,14 @@ class PostsCarouselWidget extends StatelessWidget {
   final PageController pageController;
   final String title;
   final List<Post> posts;
+  BuildContext _context;
 
   PostsCarouselWidget({this.pageController, this.title, this.posts});
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -36,26 +39,106 @@ class PostsCarouselWidget extends StatelessWidget {
     var post = posts[index];
 
     return Stack(
+      children: <Widget>[_postImage(post), _imageOverlay(post)],
+    );
+  }
+
+  Container _postImage(Post post) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(15), boxShadow: [
+        BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 6),
+      ]),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Image(
+          height: 400,
+          width: 300,
+          image: AssetImage(post.imageUrl),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _imageOverlay(Post post) {
+    return Positioned(
+      left: 10,
+      bottom: 10,
+      right: 10,
+      child: Container(
+        child: _overlayInfo(post),
+        padding: EdgeInsets.all(12),
+        height: 110,
+        decoration: BoxDecoration(
+            color: Colors.white54,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15))),
+      ),
+    );
+  }
+
+  Widget _overlayInfo(Post post) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, offset: Offset(0, 2), blurRadius: 6),
-              ]),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Image(
-              height: 400,
-              width: 300,
-              image: AssetImage(post.imageUrl),
-              fit: BoxFit.cover,
-            ),
-          ),
+        _overlayTitle(post),
+        _overlayLocation(post),
+        SizedBox(height: 6),
+        _overlayStats(post)
+      ],
+    );
+  }
+
+  Widget _overlayStats(Post post) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        _createStat(Icons.favorite, Colors.red, post.likes),
+        _createStat(
+          Icons.comment,
+          Theme.of(_context).primaryColor,
+          post.comments,
         ),
       ],
+    );
+  }
+
+  Widget _createStat(IconData statIcon, Color iconColor, int statCount) {
+    return Row(
+      children: <Widget>[
+        Icon(statIcon, color: iconColor),
+        SizedBox(width: 6),
+        Text(
+          statCount.toString(),
+          style: TextStyle(fontSize: 18),
+        )
+      ],
+    );
+  }
+
+  Widget _overlayTitle(Post post) {
+    return Text(
+      post.title,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _overlayLocation(Post post) {
+    return Text(
+      post.location,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 
