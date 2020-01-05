@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_ui/screens/home_screen.dart';
 import 'package:flutter_social_ui/utils/app_navigator.dart';
 import 'package:flutter_social_ui/widgets/curve_clipper.dart';
 
