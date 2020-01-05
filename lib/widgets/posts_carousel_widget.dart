@@ -38,6 +38,7 @@ class PostsCarouselWidget extends StatelessWidget {
   Widget _buildPost(BuildContext context, int index) {
     var post = posts[index];
 
+    //used to slightly increase size of image as they are scrolled thru
     return AnimatedBuilder(
       animation: pageController,
       child: Stack(
@@ -81,12 +82,15 @@ class PostsCarouselWidget extends StatelessWidget {
   }
 
   Widget _imageOverlay(Post post) {
+    //Parent widget is a stack so Positioned places the frosted overlay at the bottom of the stack
     return Positioned(
       left: 10,
       bottom: 10,
       right: 10,
+
+      //this is the actual frosted container at bottom of image
       child: Container(
-        child: _overlayInfo(post),
+        child: _overlayInfo(post), //creates the stats i.e. # of likes, comments, etc.
         padding: EdgeInsets.all(12),
         height: 110,
         decoration: BoxDecoration(
