@@ -38,8 +38,26 @@ class PostsCarouselWidget extends StatelessWidget {
   Widget _buildPost(BuildContext context, int index) {
     var post = posts[index];
 
-    return Stack(
-      children: <Widget>[_postImage(post), _imageOverlay(post)],
+    return AnimatedBuilder(
+      animation: pageController,
+      child: Stack(
+        children: <Widget>[_postImage(post), _imageOverlay(post)],
+      ),
+      builder: (BuildContext context, Widget widget) {
+        double value = 1;
+
+        if (pageController.position.haveDimensions) {
+          value = pageController.page - index;
+          value = (1 - (value.abs() * 0.25)).clamp(0.0, 1.0);
+        }
+
+        return Center(
+          child: SizedBox(
+            height: Curves.easeInOut.transform(value) * 400,
+            child: widget,
+          ),
+        );
+      },
     );
   }
 
