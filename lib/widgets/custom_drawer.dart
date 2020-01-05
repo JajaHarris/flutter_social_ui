@@ -43,12 +43,12 @@ class CustomDrawer extends StatelessWidget {
     Routes destination,
   ) {
     return ListTile(
+      onTap: () => AppNavigator.pushReplacement(_context, destination),
       leading: Icon(icon),
       title: Text(
         title,
         style: TextStyle(fontSize: 20),
-      ),
-      onTap: () => AppNavigator.pushReplacement(_context, destination),
+      ),      
     );
   }
 
