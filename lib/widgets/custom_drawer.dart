@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_ui/data/data.dart';
-import 'package:flutter_social_ui/screens/chat_screen.dart';
-import 'package:flutter_social_ui/screens/home_screen.dart';
-import 'package:flutter_social_ui/screens/profile_screen.dart';
-import 'package:flutter_social_ui/screens/settings_screen.dart';
-
-typedef TPage PageConstructor<TPage extends Widget>();
+import 'package:flutter_social_ui/utils/app_navigator.dart';
 
 class CustomDrawer extends StatelessWidget {
   BuildContext _context;
@@ -35,18 +30,17 @@ class CustomDrawer extends StatelessWidget {
 
   List<Widget> _drawerItems() {
     return <Widget>[
-      _createDrawerItems(Icons.dashboard, 'Home', () => HomeScreen()),
-      _createDrawerItems(Icons.chat, 'Chat', () => ChatScreen()),
-      _createDrawerItems(
-          Icons.account_circle, 'Profile', () => ProfileScreen()),
-      _createDrawerItems(Icons.settings, 'Settings', () => SettingsScreen())
+      _createDrawerItems(Icons.dashboard, 'Home', Routes.Home),
+      _createDrawerItems(Icons.chat, 'Chat', Routes.Chat),
+      _createDrawerItems(Icons.account_circle, 'Profile', Routes.Profile),
+      _createDrawerItems(Icons.settings, 'Settings', Routes.Settings)
     ];
   }
 
-  Widget _createDrawerItems<T extends Widget>(
+  Widget _createDrawerItems(
     IconData icon,
     String title,
-    PageConstructor<T> destination,
+    Routes destination,
   ) {
     return ListTile(
       leading: Icon(icon),
@@ -54,13 +48,7 @@ class CustomDrawer extends StatelessWidget {
         title,
         style: TextStyle(fontSize: 20),
       ),
-      onTap: () {
-        Navigator.pushReplacement(
-            _context,
-            MaterialPageRoute(
-              builder: (_) => destination(),
-            ));
-      },
+      onTap: () => AppNavigator.pushReplacement(_context, destination),
     );
   }
 
